@@ -1,0 +1,114 @@
+{
+  "character": {
+    "coin": 240,
+    "hpCurrent": 92,
+    "hpMax": 100,
+    "xpCurrent": 85,
+    "xpForNext": 144,
+    "nextReward": "500 Coin Bonus",
+    "level": 3
+  },
+  "habits": [
+    {
+      "id": 1747432711685,
+      "name": "No Sugar",
+      "notes": "Avoid sugar for better health",
+      "habitType": "negative",
+      "minusDisabled": false,
+      "plusDisabled": true
+    },
+    {
+      "id": 1747432711686,
+      "name": "Drink Water",
+      "notes": "Drink at least 8 cups a day",
+      "habitType": "positive",
+      "minusDisabled": true,
+      "plusDisabled": false
+    },
+    {
+      "id": 1747432711699,
+      "name": "Meditation",
+      "notes": "10 minutes each morning",
+      "habitType": "positive",
+      "minusDisabled": true,
+      "plusDisabled": false
+    }
+  ],
+  "todos": [
+    {
+      "id": 1747434000012,
+      "title": "Finish Homework",
+      "notes": "Complete math and science exercises",
+      "priority": "High",
+      "dueDate": "2025-05-21"
+    },
+    {
+      "id": 1747434000013,
+      "title": "Apply for Internship",
+      "notes": "Submit CV and portfolio to 3 companies",
+      "priority": "Medium",
+      "dueDate": "2025-05-22"
+    },
+    {
+      "id": 1747749960997,
+      "title": "etre",
+      "notes": "asf",
+      "dueDate": "2025-05-02",
+      "priority": "Medium"
+    },
+    {
+      "id": 1747750126518,
+      "title": "tes",
+      "notes": "tstst",
+      "dueDate": "2025-05-02",
+      "priority": "Low"
+    },
+    {
+      "id": 1747750242819,
+      "title": "etet",
+      "notes": "etetttttttttttttt",
+      "dueDate": "2025-05-01",
+      "dueTime": "17:04",
+      "priority": "Medium"
+    },
+    {
+      "id": 1747760269764,
+      "title": "testesteset",
+      "notes": "uuuuuuuuuuuuu",
+      "dueDate": "2025-05-20",
+      "dueTime": "20:55",
+      "priority": "Medium"
+    },
+    {
+      "id": 174776026565764,
+      "title": "testesteset",
+      "notes": "uuuuuuuuuuuuu",
+      "dueDate": "2025-05-20",
+      "dueTime": "20:57",
+      "priority": "High"
+    }
+  ],
+  "dailys": [
+    {
+      "id": 1747844991043,
+      "title": "terst",
+      "notes": "sssssssssssss",
+      "startDate": "2025-05-01",
+      "priority": "Low"
+    }
+  ],
+  "rewards": [
+    {
+      "id": 1747433900001,
+      "name": "Order Takeout",
+      "description": "Treat yourself to a meal",
+      "cost": 200
+    },
+    {
+      "id": 1747745077487,
+      "name": "Watch Episode",
+      "notes": "One episode of your favorite series",
+      "cost": 3
+    }
+  ]
+}
