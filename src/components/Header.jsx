@@ -3,7 +3,9 @@ import logo from '../icons/gamepad-solid.png';
 import userProfile from '../icons/145267625-confused-thinking-emoticon-boy-man-icon-vector-illustration-outline-style.jpg';
 import coin from "../icons/vecteezy_silver-coin-game-pixel_49322947.jpg";
 
+
 function Header({ setShowChallengeModal, setShowDailyModal, setShowHabitModal, setShowToDoModal, setShowRewardModal, goldAmount }) {
+  
   return (
     <div className="container-fluid" id="head-menu">
       <header className="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
