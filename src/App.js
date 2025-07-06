@@ -6,6 +6,7 @@ import DailyTasks from './components/box3';
 import '../src/styles.css';
 import HabitsCard from './components/box4';
 import ToDoCard from './components/box5';
+import NewChallengeModal from './components/newChallenge';
 import NewTodoModal from './components/newToDo';
 import NewHabitModal from './components/newHabit';
 import NewDailyModal from './components/newDaily';
@@ -171,6 +172,7 @@ function App() {
   const [showHabitModal, setShowHabitModal] = useState(false);
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [showDailyModal, setShowDailyModal] = useState(false);
+  const [showChallengeModal, setShowChallengeModal] = useState(false);
 
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const today = new Date().toLocaleDateString('en-US', options);
@@ -349,6 +351,7 @@ const deleteDaily = async (daily, isComplete) => {
   return (
     <div>
       <Header 
+        setShowChallengeModal={setShowChallengeModal}
         setShowToDoModal={setShowToDoModal}
         setShowHabitModal={setShowHabitModal}
         setShowDailyModal={setShowDailyModal}
@@ -363,6 +366,7 @@ const deleteDaily = async (daily, isComplete) => {
         <DailyTasks toDailyList={sampleTasks} date={today} onDelete={deleteDaily}/>
         <HabitsCard habits={habitsData} onDelete={deleteHabit}/>
         <ToDoCard todos={toDolist} onDelete={deleteToDo}/>
+        <NewChallengeModal show={showChallengeModal} onClose={() => setShowChallengeModal(false)}/>
         <NewDailyModal show={showDailyModal} onClose={() => setShowDailyModal(false)} onSubmit={addDailyTask}/>
         <NewHabitModal show={showHabitModal} onClose={() => setShowHabitModal(false)} onSubmit={addHabit}/>
         <NewTodoModal show={showModal} onClose={() => setShowToDoModal(false)} onSubmit={addToDo}/>

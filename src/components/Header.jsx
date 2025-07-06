@@ -3,7 +3,7 @@ import logo from '../icons/gamepad-solid.png';
 import userProfile from '../icons/145267625-confused-thinking-emoticon-boy-man-icon-vector-illustration-outline-style.jpg';
 import coin from "../icons/vecteezy_silver-coin-game-pixel_49322947.jpg";
 
-function Header({ setShowDailyModal, setShowHabitModal, setShowToDoModal, setShowRewardModal, goldAmount }) {
+function Header({ setShowChallengeModal, setShowDailyModal, setShowHabitModal, setShowToDoModal, setShowRewardModal, goldAmount }) {
   return (
     <div className="container-fluid" id="head-menu">
       <header className="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -15,6 +15,18 @@ function Header({ setShowDailyModal, setShowHabitModal, setShowToDoModal, setSho
         </div>
 
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+          <li>
+            <a
+              href="#"
+              className="nav-link px-3 link-dark"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowChallengeModal(true);
+              }}
+            >
+              New Challenge
+            </a>
+          </li>
           <li>
             <a
               href="#"
