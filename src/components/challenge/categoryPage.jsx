@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 
 export default function CategoryPage({ data, onChange, onBack, onNext }) {
   const [categories, setCategories] = useState(data.categories || []);
@@ -46,61 +46,79 @@ export default function CategoryPage({ data, onChange, onBack, onNext }) {
   };
 
   return (
-    <Form onSubmit={handleContinue}>
-      <h3 className="mb-4">Category Allocation</h3>
+    <div className="min-vh-100 d-flex justify-content-center align-items-center bg-body-tertiary">
+      <Container>
+        <Row className="justify-content-center">
+          <Col xs={12} md={10} lg={8}>
+            <div className="p-4 border rounded bg-light shadow-sm">
 
-      {categories.map((cat, index) => (
-        <Row key={index} className="mb-2 align-items-center">
-          <Col xs={5}>
-            <Form.Control
-              type="text"
-              placeholder="Category Name"
-              value={cat.name}
-              onChange={e => handleCategoryChange(index, 'name', e.target.value)}
-              required
-            />
-          </Col>
-          <Col xs={4}>
-            <Form.Control
-              type="number"
-              placeholder="Hours"
-              min="0"
-              value={cat.hours}
-              onChange={e => handleCategoryChange(index, 'hours', e.target.value)}
-              required
-            />
-          </Col>
-          <Col xs={3}>
-            <Button variant="danger" size="sm" onClick={() => handleRemoveCategory(index)}>
-              Remove
-            </Button>
+              <Form onSubmit={handleContinue}>
+                <h3 className="mb-4 text-center">Category Allocation</h3>
+
+                {categories.map((cat, index) => (
+                  <Row key={index} className="mb-3 align-items-center">
+                    <Col xs={12} md={5} className="mb-2 mb-md-0">
+                      <Form.Control
+                        type="text"
+                        placeholder="Category Name"
+                        value={cat.name}
+                        onChange={e => handleCategoryChange(index, 'name', e.target.value)}
+                        required
+                      />
+                    </Col>
+                    <Col xs={12} md={4} className="mb-2 mb-md-0">
+                      <Form.Control
+                        type="number"
+                        placeholder="Hours"
+                        min="0"
+                        value={cat.hours}
+                        onChange={e => handleCategoryChange(index, 'hours', e.target.value)}
+                        required
+                      />
+                    </Col>
+                    <Col xs={12} md={3}>
+                      <Button
+                        variant="outline-danger"
+                        size="sm"
+                        className="w-100"
+                        onClick={() => handleRemoveCategory(index)}
+                      >
+                        Remove
+                      </Button>
+                    </Col>
+                  </Row>
+                ))}
+
+                <div className="d-flex justify-content-between align-items-center mt-2 mb-3 flex-wrap gap-2">
+                  <div className="text-muted">
+                    Total Allocated: {totalAllocated} / {totalHours} hours
+                  </div>
+                  <Button variant="outline-primary" size="sm" onClick={handleAddCategory}>
+                    + Add Category
+                  </Button>
+                </div>
+
+                {totalAllocated < totalHours && (
+                  <div className="text-danger mb-2">
+                    ⚠️ Total must match or exceed the challenge total hours.
+                  </div>
+                )}
+
+                <div className="d-flex justify-content-between mt-4">
+                  <Button variant="secondary" onClick={onBack}>
+                    ← Back
+                  </Button>
+                  <Button variant="primary" type="submit">
+                    Next →
+                  </Button>
+                </div>
+              </Form>
+
+            </div>
           </Col>
         </Row>
-      ))}
+      </Container>
+    </div>
 
-      <div className="d-flex justify-content-between align-items-center mt-2 mb-3">
-        <div className="text-muted">
-          Total Allocated: {totalAllocated} / {totalHours} hours
-        </div>
-        <Button variant="outline-primary" size="sm" onClick={handleAddCategory}>
-          + Add Category
-        </Button>
-      </div>
-
-      {totalAllocated < totalHours && (
-        <div className="text-danger mb-2">
-          ⚠️ Total must match or exceed the challenge total hours.
-        </div>
-      )}
-
-      <div className="d-flex justify-content-between mt-4">
-        <Button variant="secondary" onClick={onBack}>
-          ← Back
-        </Button>
-        <Button variant="primary" type="submit">
-          Next →
-        </Button>
-      </div>
-    </Form>
   );
 }

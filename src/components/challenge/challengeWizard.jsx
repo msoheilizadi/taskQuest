@@ -42,7 +42,6 @@ export default function ChallengeWizard({ show, onClose, onSubmit }) {
           onSubmit={handleFinish}
         />
       )}
-      <button onClick={onClose}>Cancel</button>
     </>
   );
 }

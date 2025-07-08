@@ -5,9 +5,6 @@ import { fileURLToPath } from "url";
 import cors from 'cors';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
-import webpush from 'web-push';
-import cron from 'node-cron';
-import fetch from 'node-fetch';
 import dotnev from 'dotenv';
 
 
@@ -21,27 +18,10 @@ import dotnev from 'dotenv';
 
 dotnev.config();
 
-console.log(process.env.PUBLICKEY);
-console.log(process.env.PRIVATEKEY );
-
-
-
-const vapidkeys = {
-  publicKey: process.env.PUBLICKEY,
-  privateKey: process.env.PRIVATEKEY
-}
-
-webpush.setVapidDetails(
-  'mailto:msoheilizadi@gmail.com',
-  vapidkeys.publicKey,
-  vapidkeys.privateKey
-);
-
 const app = express();
 const port = 5000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const subscriptions = [];
 
 const dataFile = path.join(__dirname, 'data.json');
 const subscribeFile = path.join(__dirname, 'subscribe.json');
@@ -55,76 +35,10 @@ const writeSubscribe = async (data) => {
   await writeFile(subscribeFile, JSON.stringify(data, null, 2));
 };
 
-async function readSubscribe() {
-  const file = await readFile(subscribeFile, 'utf-8');
-  return JSON.parse(file);
-}
-
 const writeData = async (data) => {
   await writeFile(dataFile, JSON.stringify(data, null, 2));
 };
 
-function isTaskDueNow(task) {
-  const now = new Date();
-
-  if (!task.dueTime) return false;
-
-  const todayStr = now.toISOString().slice(0, 10);
-  const dueDateTimeStr = `${todayStr}T${task.dueTime}:00`;
-  const dueDate = new Date(dueDateTimeStr);
-
-  const diffMs = now - dueDate;
-  const toleranceMs = 10 * 60 * 1000;
-
-  console.log(`[DEBUG] Task: ${task.title}, Now: ${now}, Due: ${dueDate}, Diff: ${diffMs}ms`);
-
-  return Math.abs(diffMs) <= toleranceMs;
-}
-
-async function sendNotifications() {
-  try {
-    const response = await fetch('http://localhost:5000/readTodos');
-    const tasks = await response.json();
-
-    const subscriptions = await readSubscribe(); // assuming this returns an array of subscriptions
-    
-    tasks.forEach(task => {
-      const todayStr = new Date().toISOString().slice(0, 10);
-      console.log(`Checking task "${task.title}" at time: ${todayStr}T${task.dueTime}:00`);
-      console.log(`isTaskDueNow: ${isTaskDueNow(task)}`);
-    });
-
-    // Filter tasks that are due now
-    const dueTasks = tasks.filter(isTaskDueNow);
-    console.log(dueTasks);
-    
-
-    if (subscriptions.length === 0) {
-      console.log('No subscriptions available.');
-      return;
-    }
-
-    for (const task of dueTasks) {
-      const payload = JSON.stringify({
-        title: 'Task Reminder',
-        body: `Reminder: "${task.title}" is due now!`,
-        data: { taskId: task.id }
-      });
-
-      try {
-          await webpush.sendNotification(subscriptions, payload);
-          console.log(`Notification sent for task ${task.id}`);
-        } catch (err) {
-          console.error('Notification send error:', err);
-        }
-    }
-  } catch (err) {
-    console.error('Error in sendNotifications:', err);
-  }
-}
-
-
-cron.schedule('* * * * *', sendNotifications);
 
 function getNextWeeklyRepeat(startDateStr, repeatOn, intervalWeeks) {
   const weekdayMap = {
@@ -210,32 +124,6 @@ app.post('/subscribe',async (req, res) => {
 
   res.status(201).json({ message: 'User subscribed successfully' });
 });
-
-app.post('/sendNotification', async (req, res) => {
-  const payload = JSON.stringify({
-    title: 'Reminder!',
-    body: 'Did you complete your high priority task?',
-  });
-
-  try {
-    const subscriptions = await readSubscribe();
-
-    console.log(subscriptions);
-    
-
-    if (!subscriptions || subscriptions.length === 0) {
-      return res.status(400).json({ message: 'No subscriptions found' });
-    }
-
-    webpush.sendNotification(subscriptions, payload);
-
-    res.status(200).json({ message: 'Notifications sent' });
-  } catch (error) {
-    console.error('Error sending notification:', error);
-    res.status(500).json({ error: 'Failed to send notification' });
-  }
-});
-
 
 
 app.get('/readHabits', async (req, res) => {
