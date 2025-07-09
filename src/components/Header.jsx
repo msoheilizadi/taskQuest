@@ -5,7 +5,7 @@ import coin from "../icons/vecteezy_silver-coin-game-pixel_49322947.jpg";
 import { useNavigate } from "react-router-dom";
 
 
-function Header({ setShowChallengeModal, setShowDailyModal, setShowHabitModal, setShowToDoModal, setShowRewardModal, goldAmount }) {
+function Header({ setShowDailyModal, setShowHabitModal, setShowToDoModal, setShowRewardModal, goldAmount }) {
   const navigate = useNavigate();
 
   return (

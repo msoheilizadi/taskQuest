@@ -49,3 +49,15 @@ export const deleteToDo = (todo, isComplete) =>
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ isComplete }),
   }).then(handleJson);
+
+export const newChallenge = (data) =>
+  fetch(`${BASE}/challenge`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'  // fix: use 'application/json'
+    },
+    body: JSON.stringify(data),           // send the data object directly
+  }).then(res => {
+    if (!res.ok) throw new Error('Server error');
+    return res.json();
+});

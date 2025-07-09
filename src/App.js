@@ -26,12 +26,14 @@ import {
   deleteDaily,
   deleteReward,
   deleteHabit,
-  deleteToDo
+  deleteToDo,
+  newChallenge
 } from './api/index';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 const handleChallengeSubmit = (data) => {
   console.log("Received challenge data from modal:", data);
+  newChallenge(data);
   // Do something with the data, like save it or update state
 };
 
@@ -48,10 +50,6 @@ function App() {
   const [showHabitModal, setShowHabitModal] = useState(false);
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [showDailyModal, setShowDailyModal] = useState(false);
-  const [showWizard, setShowWizard] = useState(false);
-
-  const navigate = useNavigate();
-
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const today = new Date().toLocaleDateString('en-US', options);
 
@@ -85,7 +83,6 @@ function App() {
       element={
       <div>
         <Header 
-          setShowChallengeModal={setShowWizard}
           setShowToDoModal={setShowToDoModal}
           setShowHabitModal={setShowHabitModal}
           setShowDailyModal={setShowDailyModal}
@@ -109,7 +106,7 @@ function App() {
       </div>
       }
     />
-    <Route path='/challenge' element={<ChallengeWizard show={true} onClose={() => setShowWizard(false)} onSubmit={handleChallengeSubmit}/>} />
+    <Route path='/challenge' element={<ChallengeWizard show={true} onSubmit={handleChallengeSubmit}/>} />
     </Routes>
   );
 }

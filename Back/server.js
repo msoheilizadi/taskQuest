@@ -400,6 +400,14 @@ app.post('/buyReward', async (req, res) => {
   }
 });
 
+app.post('/challenge', async (req, res) => {
+  const challengeData = req.body;
+  console.log(challengeData);
+
+  res.status(200).json({message: 'challenge data received successfully'})
+  
+})
+
 
 
 

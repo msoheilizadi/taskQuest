@@ -266,3 +266,20 @@ body {
   background-color: #007bff;
   color: white;
 }
+
+.custom-progressbar {
+  height: 1.5rem !important; /* container height */
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  color: #000 !important;
+}
+
+.custom-progressbar .progress-bar {
+  height: 100% !important;  /* fill full container height */
+  background-color: #53e775 !important; /* default Bootstrap success green */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
